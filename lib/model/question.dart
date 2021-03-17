@@ -10,12 +10,45 @@ class Question {
   @JsonKey(defaultValue: "")
   final String answer;
 
-  @JsonKey(defaultValue: "")
-  final String number;
+  @JsonKey(defaultValue: 0)
+  final int number;
+
+  @JsonKey(ignore: true)
+  List<Answer> answerModels=[];
+
+  @JsonKey(ignore: true)
+  OptionState optionState=OptionState.none;
 
   Question({this.label, this.answer, this.answers, this.number});
 
   factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
 
   Map<String, dynamic> toJson() => _$QuestionToJson(this);
+
+  @override
+  String toString() {
+    return 'label=$label\n';
+  }
+}
+
+class Answer{
+
+  OptionState state=OptionState.none;
+  final String text;
+  final int id;
+
+  Answer(this.id,this.text);
+
+}
+
+class QuestionState{
+  final List<Question> data;
+  final String error;
+  QuestionState({this.data,this.error});
+}
+
+enum OptionState{
+  none,
+  wrong,
+  correct
 }

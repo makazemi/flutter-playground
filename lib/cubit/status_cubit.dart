@@ -12,8 +12,8 @@ class StatusCubit extends Cubit<StatusState> {
   Future<void> getStatus(String phone) async {
     try {
       emit(StatusLoading());
-      final questions = await _repository.fetchStatus(phone);
-      emit(StatusLoaded(questions));
+      final status = await _repository.fetchStatus(phone);
+      emit(StatusLoaded(status));
     } on NetworkException {
       emit(StatusError("Couldn't fetch weather. Is the device online?"));
     }

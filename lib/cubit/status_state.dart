@@ -15,7 +15,7 @@ class StatusLoading extends StatusState {
 }
 
 class StatusLoaded extends StatusState {
-  final String status;
+  final int status;
   const StatusLoaded(this.status);
 
   @override

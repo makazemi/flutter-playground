@@ -6,7 +6,7 @@ part 'response.g.dart';
 @JsonSerializable()
 class QuestionResponse{
 
-  final String status;
+  final int status;
 
   @JsonKey(defaultValue:[])
   final List<Question> questions;

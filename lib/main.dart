@@ -18,16 +18,10 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: Colors.grey.shade800),
         ),
       ),
-      home: BlocProvider(
-        create: (context) => StatusCubit(QuestionRepositoryImpl()),
-        child: Directionality(
-            textDirection:  TextDirection.rtl,
-            child: HomeScreen(),
-        ),
+      home: Directionality(
+        textDirection: TextDirection.rtl,
+        child: HomeScreen(),
       ),
     );
   }
 }
-
-
-

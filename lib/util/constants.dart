@@ -9,4 +9,4 @@ const pink =const Color(0xFFFF4389);
 
 const BASE_URL="http://185.8.172.160/api/v3/ny1400/";
 const QUERY_PARAMETER_FIX="chandNY1400!";
-const LINK_URL="";
+const LINK_URL="https://chandmahame.com/";

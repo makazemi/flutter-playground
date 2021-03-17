@@ -11,7 +11,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
     label: json['label'] as String,
     answer: json['answer'] as String ?? '',
     answers: (json['answers'] as List)?.map((e) => e as String)?.toList(),
-    number: json['number'] as String ?? '',
+    number: json['number'] as int ?? 0,
   );
 }
 

@@ -13,7 +13,7 @@ QuestionResponse _$QuestionResponseFromJson(Map<String, dynamic> json) {
                 e == null ? null : Question.fromJson(e as Map<String, dynamic>))
             ?.toList() ??
         [],
-    status: json['status'] as String,
+    status: json['status'] as int,
   );
 }
 

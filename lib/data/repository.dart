@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 abstract class QuestionRepository {
   Future<List<Question>> fetchQuestions(String phone);
-  Future<String> fetchStatus(String phone);
+  Future<int> fetchStatus(String phone);
 }
 
 class QuestionRepositoryImpl implements QuestionRepository {
@@ -35,7 +35,7 @@ class QuestionRepositoryImpl implements QuestionRepository {
   }
 
   @override
-  Future<String> fetchStatus(String phone) async{
+  Future<int> fetchStatus(String phone) async{
     var queryParameters = {
       'sec_code': QUERY_PARAMETER_FIX,
       'mobile': phone,
