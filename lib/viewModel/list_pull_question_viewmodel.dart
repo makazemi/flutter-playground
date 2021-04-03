@@ -4,7 +4,7 @@ import 'package:sample_flutter_web_app/model/question.dart';
 import 'package:sample_flutter_web_app/services/api.dart';
 import 'package:sample_flutter_web_app/viewModel/base_viewmodel.dart';
 
-class ListQuestionViewModel extends BaseViewModel {
+class ListPullQuestionViewModel extends BaseViewModel {
   Api _api = Api();
 
   QuestionState questionState;
@@ -17,9 +17,16 @@ class ListQuestionViewModel extends BaseViewModel {
     setState(ViewState.Idle);
   }
 
-  bool changeActionNextQuestion = false;
 
-  bool isEnablePreviousQuestionButton = false;
+  Future postAnswer(String phone,int label,int answer) async {
+    setState(ViewState.Busy);
+    final data = await _api.postAnswer(phone,label,answer);
+    setState(ViewState.Idle);
+    nextQuestion();
+  }
+
+
+  bool changeActionNextQuestion = false;
 
   Question get currentQuestion {
     if (_index < 0) return null;
@@ -35,39 +42,17 @@ class ListQuestionViewModel extends BaseViewModel {
         log('index=$_index');
         changeActionNextQuestion = true;
       }
-      isEnablePreviousQuestionButton = true;
       notifyListeners();
     }
   }
 
-  void previousQuestion() {
-    if (_index > 0) {
-      _index--;
-    } else {
-      isEnablePreviousQuestionButton = false;
-    }
-    notifyListeners();
-  }
-
-  void updateOptionState(int id) {
+  void updateOptionState(String phone,int id) {
     if (currentQuestion != null) {
       if (currentQuestion.answerModels.isNotEmpty &&
           id < currentQuestion.answerModels.length) {
-        if (currentQuestion.answerModels.where((element) {
-              return (element.state == OptionState.correct ||
-                  element.state == OptionState.wrong);
-            }).toList().isEmpty) {
-          currentQuestion.answerModels[0].state = OptionState.correct;
-          if (id != 0) {
-            currentQuestion.answerModels[id].state = OptionState.wrong;
-            currentQuestion.optionState=OptionState.wrong;
-          }else{
-            currentQuestion.optionState=OptionState.correct;
-          }
-          notifyListeners();
-        }
+        currentQuestion.answerModels[id].state = OptionState.correct;
+        postAnswer(phone, currentQuestion.number, id+1);
       }
     }
   }
-
 }

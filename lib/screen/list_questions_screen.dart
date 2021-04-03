@@ -5,7 +5,7 @@ import 'package:sample_flutter_web_app/screen/base_view.dart';
 import 'package:sample_flutter_web_app/util/constants.dart';
 import 'package:sample_flutter_web_app/viewModel/list_question_viewmodel.dart';
 import 'package:sample_flutter_web_app/widget/options_list.dart';
-import 'dart:developer';
+
 
 class ListQuestionScreen extends StatefulWidget {
   final String phoneNumber;
@@ -17,7 +17,6 @@ class ListQuestionScreen extends StatefulWidget {
 }
 
 class _ListQuestionScreenState extends State<ListQuestionScreen> {
-  var _inProgress = false;
 
   ListQuestionViewModel model = ListQuestionViewModel();
 
@@ -27,110 +26,104 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
   }
 
   void goToAwardScreen() {
-    log('go to award');
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/award-screen', ModalRoute.withName('/'));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<ListQuestionViewModel>(
+    return  BaseView<ListQuestionViewModel>(
       model: model,
       onModelReady: (model) => model.fetchQuestions(widget.phoneNumber),
       builder: (context, model, child) => Scaffold(
-        body: SafeArea(
-          child: model.state == ViewState.Busy
-              ? Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize:MainAxisSize.min ,
-                    children: [
-                           Flexible(
-                             child: Container(
-                              height: 200,
-                              child: Image(image: AssetImage('images/spring.png')),
-                          ),
-                           ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Flexible(
-                        child: Container(
-                          margin: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              color: grey1),
-                          child: Column(children: [
-                            model.questionState.data != null
-                                ? Expanded(
-                                  child: Column(
-                                      children: [
-                                        Text(model.currentQuestion.label),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Expanded(child: OptionList()),
-                                      ],
-                                    ),
-                                )
-                                : Text(model.questionState.error),
+        body: Directionality(
+          textDirection: TextDirection.rtl,
+          child: SafeArea(
+            child: model.state == ViewState.Busy
+                ? Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image(image: AssetImage('images/bannerquestion.jpg')),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(10.0)),
+                          color: grey1),
+                      child: Column(children: [
+                        model.questionState.data != null
+                            ? Column(
+                          children: [
+                            Text(model.currentQuestion.label),
                             SizedBox(
                               height: 10,
                             ),
-                            if (model.currentQuestion.optionState ==
-                                OptionState.wrong)
-                              buildBoxWrongAnswer()
-                            else if (model.currentQuestion.optionState ==
-                                OptionState.correct)
-                              buildBoxCorrectAnswer(),
-                          ]),
+                            OptionList(),
+                          ],
+                        )
+                            : Text(model.questionState.error),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      buildButtonChangeQuestion(),
+                        if (model.currentQuestion.optionState ==
+                            OptionState.wrong)
+                          buildBoxWrongAnswer()
+                        else if (model.currentQuestion.optionState ==
+                            OptionState.correct)
+                          buildBoxCorrectAnswer(),
                       ]),
-              ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    buildButtonChangeQuestion(),
+                  ]),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Flexible buildButtonChangeQuestion() {
-    return Flexible(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Align(
-          alignment: FractionalOffset.bottomCenter,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
+  Widget buildButtonChangeQuestion() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
                 onPressed: () {
-                  if (model.isEnablePreviousQuestionButton)
-                    model.previousQuestion();
+                  if (model.changeActionNextQuestion) {
+                    goToAwardScreen();
+                  } else {
+                    model.nextQuestion();
+                  }
+                  // log('index=${model.index}');
                 },
-                child: Text('سوال قبلی'),
+                child: Text('سوال بعدی'),
                 style: ElevatedButton.styleFrom(
                   primary: grey3,
-                ),
+                )),
+            ElevatedButton(
+              onPressed: () {
+                if (model.isEnablePreviousQuestionButton)
+                  model.previousQuestion();
+              },
+              child: Text('سوال قبلی'),
+              style: ElevatedButton.styleFrom(
+                primary: grey3,
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (model.changeActionNextQuestion) {
-                      goToAwardScreen();
-                    } else {
-                      model.nextQuestion();
-                    }
-                    // log('index=${model.index}');
-                  },
-                  child: Text('سوال بعدی'),
-                  style: ElevatedButton.styleFrom(
-                    primary: grey3,
-                  )),
-            ],
-          ),
+            ),
+
+          ],
         ),
       ),
     );

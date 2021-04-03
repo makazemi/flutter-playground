@@ -47,6 +47,18 @@ class QuestionState{
   QuestionState({this.data,this.error});
 }
 
+class ResponsePostAnswer{
+  final String data;
+  final String error;
+  ResponsePostAnswer({this.data,this.error});
+}
+
+class StatusState{
+  final int data;
+  final String error;
+  StatusState({this.data,this.error});
+}
+
 enum OptionState{
   none,
   wrong,
