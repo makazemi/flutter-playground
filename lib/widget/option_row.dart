@@ -7,7 +7,7 @@ class OptionRow extends StatelessWidget {
 
   final Function onClickOption;
 
-  OptionRow({this.answer,this.onClickOption});
+  OptionRow({required this.answer,required this.onClickOption});
 
   Color setBackgroundColorOption() {
     switch (answer.state) {

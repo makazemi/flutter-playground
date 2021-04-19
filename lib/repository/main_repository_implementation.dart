@@ -7,10 +7,11 @@ class MainRepositoryImpl extends MainRepository{
 
   final Api apiService;
 
-  MainRepositoryImpl({@required this.apiService});
+  MainRepositoryImpl({required this.apiService});
 
-
-
-
+  @override
+  Future<int> fetchUserStatus(String phoneNumber) {
+    return apiService.fetchUserStatus(phoneNumber);
+  }
 
 }

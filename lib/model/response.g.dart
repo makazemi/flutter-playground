@@ -8,11 +8,9 @@ part of 'response.dart';
 
 QuestionResponse _$QuestionResponseFromJson(Map<String, dynamic> json) {
   return QuestionResponse(
-    questions: (json['questions'] as List)
-            ?.map((e) =>
-                e == null ? null : Question.fromJson(e as Map<String, dynamic>))
-            ?.toList() ??
-        [],
+    questions: (json['questions'] as List<dynamic>?)
+        ?.map((e) => Question.fromJson(e as Map<String, dynamic>))
+        .toList(),
     status: json['status'] as int,
   );
 }

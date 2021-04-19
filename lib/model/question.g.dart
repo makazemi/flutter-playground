@@ -9,9 +9,10 @@ part of 'question.dart';
 Question _$QuestionFromJson(Map<String, dynamic> json) {
   return Question(
     label: json['label'] as String,
-    answer: json['answer'] as String ?? '',
-    answers: (json['answers'] as List)?.map((e) => e as String)?.toList(),
-    number: json['number'] as int ?? 0,
+    answer: json['answer'] as String? ?? '',
+    answers:
+        (json['answers'] as List<dynamic>).map((e) => e as String).toList(),
+    number: json['number'] as int? ?? 0,
   );
 }
 

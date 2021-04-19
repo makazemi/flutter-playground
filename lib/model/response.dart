@@ -8,10 +8,10 @@ class QuestionResponse{
 
   final int status;
 
-  @JsonKey(defaultValue:[])
-  final List<Question> questions;
+  //@JsonKey(defaultValue:null)
+  final List<Question>? questions;
 
-  QuestionResponse({this.questions,this.status});
+  QuestionResponse({this.questions,required this.status});
 
 
   factory QuestionResponse.fromJson(Map<String, dynamic> json) => _$QuestionResponseFromJson(json);
@@ -22,7 +22,7 @@ class QuestionResponse{
 @JsonSerializable()
 class QuestionResponseData{
 
-  final QuestionResponse data;
+  final QuestionResponse? data;
 
   QuestionResponseData(this.data);
 

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class HomeState extends Equatable{
 
@@ -15,11 +14,14 @@ class HomeLoading extends HomeState{
 }
 
 class HomeLoaded extends HomeState{
-  final String status;
-  HomeLoaded({@required this.status});
+  final int status;
+  HomeLoaded({required this.status});
+
+  @override
+  List<Object> get props => [status];
 }
 
 class HomeError extends HomeState{
-  final String message;
+  final String? message;
   HomeError({this.message});
 }

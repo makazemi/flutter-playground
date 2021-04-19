@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sample_flutter_web_app/enums/viewstate.dart';
-import 'package:sample_flutter_web_app/model/question.dart';
-import 'package:sample_flutter_web_app/screen/base_view.dart';
 import 'package:sample_flutter_web_app/util/constants.dart';
-import 'package:sample_flutter_web_app/viewModel/list_question_viewmodel.dart';
 import 'package:sample_flutter_web_app/widget/options_list.dart';
 
 
 class ListQuestionScreen extends StatefulWidget {
   final String phoneNumber;
 
-  ListQuestionScreen({this.phoneNumber});
+  ListQuestionScreen({required this.phoneNumber});
 
   @override
   _ListQuestionScreenState createState() => _ListQuestionScreenState();
@@ -18,7 +14,6 @@ class ListQuestionScreen extends StatefulWidget {
 
 class _ListQuestionScreenState extends State<ListQuestionScreen> {
 
-  ListQuestionViewModel model = ListQuestionViewModel();
 
   @override
   void initState() {
@@ -32,16 +27,14 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  BaseView<ListQuestionViewModel>(
-      model: model,
-      onModelReady: (model) => model.fetchQuestions(widget.phoneNumber),
-      builder: (context, model, child) => Scaffold(
+    return  Scaffold(
         body: Directionality(
           textDirection: TextDirection.rtl,
           child: SafeArea(
-            child: model.state == ViewState.Busy
-                ? Center(child: CircularProgressIndicator())
-                : SingleChildScrollView(
+            child:
+           // model.state == ViewState.Busy
+               // ? Center(child: CircularProgressIndicator())
+            SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -57,26 +50,24 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
                           BorderRadius.all(Radius.circular(10.0)),
                           color: grey1),
                       child: Column(children: [
-                        model.questionState.data != null
-                            ? Column(
+                       // model.questionState.data != null ?
+                        Column(
                           children: [
-                            Text(model.currentQuestion.label),
+                            Text('model.currentQuestion.label'),
                             SizedBox(
                               height: 10,
                             ),
                             OptionList(),
                           ],
-                        )
-                            : Text(model.questionState.error),
+                        ),
+                            //: Text(model.questionState.error),
                         SizedBox(
                           height: 10,
                         ),
-                        if (model.currentQuestion.optionState ==
-                            OptionState.wrong)
-                          buildBoxWrongAnswer()
-                        else if (model.currentQuestion.optionState ==
-                            OptionState.correct)
-                          buildBoxCorrectAnswer(),
+                       // if (model.currentQuestion.optionState == OptionState.wrong)
+                          buildBoxWrongAnswer(),
+                        //else if (model.currentQuestion.optionState ==OptionState.correct)
+                       //   buildBoxCorrectAnswer(),
                       ]),
                     ),
                     SizedBox(
@@ -87,8 +78,8 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
+
   }
 
   Widget buildButtonChangeQuestion() {
@@ -101,11 +92,11 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  if (model.changeActionNextQuestion) {
-                    goToAwardScreen();
-                  } else {
-                    model.nextQuestion();
-                  }
+                  // if (model.changeActionNextQuestion) {
+                  //   goToAwardScreen();
+                  // } else {
+                  //   model.nextQuestion();
+                  // }
                   // log('index=${model.index}');
                 },
                 child: Text('سوال بعدی'),
@@ -114,8 +105,8 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
                 )),
             ElevatedButton(
               onPressed: () {
-                if (model.isEnablePreviousQuestionButton)
-                  model.previousQuestion();
+                // if (model.isEnablePreviousQuestionButton)
+                //   model.previousQuestion();
               },
               child: Text('سوال قبلی'),
               style: ElevatedButton.styleFrom(
@@ -160,7 +151,7 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              model.currentQuestion.answer,
+              'model.currentQuestion.answer',
               textAlign: TextAlign.center,
             ),
           )
@@ -200,7 +191,7 @@ class _ListQuestionScreenState extends State<ListQuestionScreen> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              model.currentQuestion.answer,
+              'model.currentQuestion.answer',
               textAlign: TextAlign.center,
             ),
           )

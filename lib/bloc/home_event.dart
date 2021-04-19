@@ -10,5 +10,8 @@ class FetchStatus extends HomeEvent {
 
   final String phone;
 
-  FetchStatus({@required this.phone});
+  FetchStatus({required this.phone});
+
+  @override
+  List<Object> get props => [phone];
 }

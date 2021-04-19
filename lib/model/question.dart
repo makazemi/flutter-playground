@@ -19,7 +19,7 @@ class Question {
   @JsonKey(ignore: true)
   OptionState optionState=OptionState.none;
 
-  Question({this.label, this.answer, this.answers, this.number});
+  Question({required this.label, required this.answer, required this.answers, required this.number});
 
   factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
 
@@ -42,20 +42,20 @@ class Answer{
 }
 
 class QuestionState{
-  final List<Question> data;
-  final String error;
+  final List<Question>? data;
+  final String? error;
   QuestionState({this.data,this.error});
 }
 
 class ResponsePostAnswer{
-  final String data;
-  final String error;
+  final String? data;
+  final String? error;
   ResponsePostAnswer({this.data,this.error});
 }
 
 class StatusState{
-  final int data;
-  final String error;
+  final int? data;
+  final String? error;
   StatusState({this.data,this.error});
 }
 

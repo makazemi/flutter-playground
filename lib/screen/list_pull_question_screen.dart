@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:sample_flutter_web_app/screen/base_view.dart';
 import 'package:sample_flutter_web_app/util/constants.dart';
-import 'package:sample_flutter_web_app/viewModel/list_pull_question_viewmodel.dart';
-import 'package:sample_flutter_web_app/enums/viewstate.dart';
 import 'package:sample_flutter_web_app/widget/options_list_pull.dart';
 
 class ListPullQuestionScreen extends StatefulWidget {
 
   final String phoneNumber;
 
-  ListPullQuestionScreen({this.phoneNumber});
+  ListPullQuestionScreen({required this.phoneNumber});
 
   @override
   _ListPullQuestionScreenState createState() => _ListPullQuestionScreenState();
 }
 
 class _ListPullQuestionScreenState extends State<ListPullQuestionScreen> {
-  ListPullQuestionViewModel model = ListPullQuestionViewModel();
+
 
   @override
   void initState() {
@@ -30,15 +27,13 @@ class _ListPullQuestionScreenState extends State<ListPullQuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  BaseView<ListPullQuestionViewModel>(
-      model: model,
-      onModelReady: (model) => model.fetchQuestions(widget.phoneNumber),
-      builder: (context, model, child) => Directionality(
+    return  Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
           body: SafeArea(
-            child: model.state == ViewState.Busy
-                ? Center(child: CircularProgressIndicator())
+            child
+            //model.state == ViewState.Busy
+                //? Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,17 +50,18 @@ class _ListPullQuestionScreenState extends State<ListPullQuestionScreen> {
                           BorderRadius.all(Radius.circular(10.0)),
                           color: grey1),
                       child: Column(children: [
-                        model.questionState.data != null
-                            ? Column(
+                        //model.questionState.data != null
+                            //?
+                      Column(
                           children: [
-                            Text(model.currentQuestion.label),
+                            Text('model.currentQuestion.label'),
                             SizedBox(
                               height: 10,
                             ),
                             OptionListPull(widget.phoneNumber),
                           ],
-                        )
-                            : Text(model.questionState.error),
+                        ),
+                            //: Text('model.questionState.error'),
                         SizedBox(
                           height: 10,
                         ),
@@ -79,8 +75,8 @@ class _ListPullQuestionScreenState extends State<ListPullQuestionScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
+
   }
 
   Widget buildButtonChangeQuestion() {
@@ -93,11 +89,11 @@ class _ListPullQuestionScreenState extends State<ListPullQuestionScreen> {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  if (model.changeActionNextQuestion) {
-                    goToAwardScreen();
-                  } else {
-                    model.nextQuestion();
-                  }
+                  // if (model.changeActionNextQuestion) {
+                  //   goToAwardScreen();
+                  // } else {
+                  //   model.nextQuestion();
+                  // }
                   // log('index=${model.index}');
                 },
                 child: Text('سوال بعدی'),

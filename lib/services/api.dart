@@ -18,7 +18,7 @@ class Api {
           headers: {'Accept': 'application/json'});
       log('response=${response.body}');
       if (response.statusCode == 200) {
-        final status = QuestionResponseData.fromJson(jsonDecode(response.body)).data.status;
+        final status = QuestionResponseData.fromJson(jsonDecode(response.body)).data?.status;
 
         return StatusState(data:status,error: null);
       } else {
@@ -30,6 +30,29 @@ class Api {
       return StatusState(data: null,error: 'خطا در ارتباط با سرور');
     }
   }
+
+
+  Future<int> fetchUserStatus(String phoneNumber) async{
+    try {
+      http.Response response = await http.get(
+          Uri.parse(
+              '${BASE_URL}status?mobile=${phoneNumber}&sec_code=$QUERY_PARAMETER_FIX'),
+          headers: {'Accept': 'application/json'});
+      log('response=${response.body}');
+      if (response.statusCode == 200) {
+        final status = QuestionResponseData.fromJson(jsonDecode(response.body)).data?.status;
+
+        return status==null ? 0 : status;
+      } else {
+        log('error=${response.toString()}');
+        throw Exception('خطا در ارتباط با سرور');
+      }
+    } catch (e) {
+      log('exceppoin=$e');
+      throw Exception(e.toString());
+    }
+  }
+
 
   Future<ResponsePostAnswer> postAnswer(String phoneNumber,int label,int answer) async{
     try {
@@ -66,21 +89,21 @@ class Api {
       log('response=${response.body}');
       if (response.statusCode == 200) {
 
-        final List<Question> questions = QuestionResponseData.fromJson(jsonDecode(response.body))
-            .data
-            .questions;
+        final List<Question>? questions = QuestionResponseData.fromJson(jsonDecode(response.body)).data?.questions;
 
-        log('size=${questions.length}');
-        for(var question in questions){
-          var id=0;
-          for(var answer in question.answers){
-            var option=answer;
-            if(option==null)
-              option='';
-            question.answerModels.add(Answer(id,option));
-            id++;
+        if(questions!=null){
+          log('size=${questions.length}');
+          for(var question in questions){
+            var id=0;
+            for(var answer in question.answers){
+              var option=answer;
+              if(option==null)
+                option='';
+              question.answerModels.add(Answer(id,option));
+              id++;
+            }
+            id=0;
           }
-          id=0;
         }
 
         return QuestionState(data:questions,error: null);
