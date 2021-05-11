@@ -41,11 +41,6 @@ class Answer{
 
 }
 
-class QuestionState{
-  final List<Question>? data;
-  final String? error;
-  QuestionState({this.data,this.error});
-}
 
 class ResponsePostAnswer{
   final String? data;

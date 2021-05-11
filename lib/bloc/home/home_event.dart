@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart';
+
 import 'package:equatable/equatable.dart';
 
 abstract class HomeEvent extends Equatable {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_flutter_web_app/bloc/home_bloc.dart';
-import 'package:sample_flutter_web_app/bloc/home_event.dart';
-import 'package:sample_flutter_web_app/bloc/home_state.dart';
+import 'file:///E:/flutterProject/sample_flutter_web_app/lib/bloc/home/home_bloc.dart';
+import 'file:///E:/flutterProject/sample_flutter_web_app/lib/bloc/home/home_event.dart';
+import 'file:///E:/flutterProject/sample_flutter_web_app/lib/bloc/home/home_state.dart';
 import 'package:sample_flutter_web_app/repository/main_repository.dart';
 import 'package:sample_flutter_web_app/screen/list_questions_screen.dart';
 import 'package:sample_flutter_web_app/screen/list_pull_question_screen.dart';

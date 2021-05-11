@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:sample_flutter_web_app/bloc/home_event.dart';
-import 'package:sample_flutter_web_app/bloc/home_state.dart';
+import 'file:///E:/flutterProject/sample_flutter_web_app/lib/bloc/home/home_event.dart';
+import 'file:///E:/flutterProject/sample_flutter_web_app/lib/bloc/home/home_state.dart';
 import 'package:sample_flutter_web_app/repository/main_repository.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {

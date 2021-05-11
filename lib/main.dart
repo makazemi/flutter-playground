@@ -6,7 +6,7 @@ import 'package:sample_flutter_web_app/repository/main_repository_implementation
 import 'package:sample_flutter_web_app/screen/list_pull_question_screen.dart';
 import 'package:sample_flutter_web_app/services/api.dart';
 import 'package:sample_flutter_web_app/util/simple_bloc_observer.dart';
-import 'bloc/home_bloc.dart';
+import 'bloc/home/home_bloc.dart';
 import 'screen/list_questions_screen.dart';
 import 'screen/award_screen.dart';
 import 'screen/home_screen.dart';
